@@ -1,0 +1,49 @@
+*,
+*:after,
+*:before {
+  box-sizing: border-box;
+}
+.task-wrapper {
+  width: 800px;
+  margin: auto;
+  padding-top: 40px;
+}
+
+h1 {
+  font-size: 32px;
+  font-weight: bold;
+  margin-bottom: 20px;
+  color: #f0145a;
+  margin-top: 20px;
+}
+ul {
+  list-style-type: disc;
+  margin-left: 20px;
+}
+ul li {
+  padding: 5px 0 5px 0;
+  color: #6424f8;
+  font-size: 18px;
+}
+label {
+  color: #ff7b00;
+  margin-right: 10px;
+}
+#search {
+  color: #ff7b00;
+  border: 1px solid #ff7b00;
+}
+#search:focus {
+  outline: 1px solid #ff7b00;
+}
+#filmsCount {
+  color: #ff00aa;
+  margin-top: 10px;
+}
+
+#menu li {
+  cursor: pointer;
+}
+#menu li ul {
+  list-style-type: decimal;
+}
