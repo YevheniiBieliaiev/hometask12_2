@@ -57,7 +57,7 @@ function checkFilms() {
       let filmNameTransf = key.textContent.toLowerCase().trim();
       if (inpVal.split(" ").join("") === "") {
         p.textContent = "Please, enter a name of the film."
-      } else if (filmNameTransf.includes(inpVal)) {
+      } else if (filmNameTransf.startsWith(inpVal)) {
         sortFilm.push(key.textContent);
         p.textContent = `Match: ${sortFilm.length}`;
       } else {
@@ -66,8 +66,7 @@ function checkFilms() {
     }
   }
 
-  let listener = input.addEventListener("input", checking);
-  //listener.removeEventListener("input", checking, false);
+  input.addEventListener("input", checking);
 }
 
 /*запуск */
@@ -126,5 +125,57 @@ function createDrinkList(obj) {
 }
 
 createDrinkList(INGREDIENTS);
+
+
+/*3)**/
+function createClock() {
+  let wrapper = document.querySelector(".task-wrapper");
+  let h1 = document.createElement("h1");
+
+  wrapper.append(h1);
+  h1.textContent = "Third task: Actual Time";
+
+  let buttonStart = document.createElement("button");
+  let buttonStop = document.createElement("button");
+  wrapper.append(buttonStart);
+  wrapper.append(buttonStop);
+  buttonStart.textContent = "Start";
+  buttonStart.id = "start";
+  buttonStop.textContent = "Stop";
+  buttonStop.id = "stop";
+
+  let h2 = document.createElement("h2");
+  wrapper.append(h2);
+
+  function getTime() {
+    let date = new Date();
+    let hours = date.getHours();
+    let minutes = date.getMinutes();
+    let seconds = date.getSeconds();
+
+    if (hours < 10) {
+      hours = `0` + date.getHours();
+    }
+    if (minutes < 10) {
+      minutes = `0` + date.getMinutes();
+    }
+    if (seconds < 10) {
+      seconds = `0` + date.getSeconds();
+    }
+
+    h2.textContent = `${hours} : ${minutes} : ${seconds}`;
+  }
+
+  let clockStart = setInterval(getTime);
+
+  document.querySelector("#stop").addEventListener("click", event => {
+    if (event.target) { clearInterval(clockStart); }
+  })
+  document.querySelector("#start").addEventListener("click", event => {
+    if (event.target) { clockStart = setInterval(getTime); }
+  })
+}
+
+createClock();
 
 
