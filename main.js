@@ -1,8 +1,7 @@
 "use strict";
 
 /*1)*/
-
-/*массив с коллекцией фильмов*/
+//массив с коллекцией фильмов
 const filmCollection = ["Jurassic Park", "Schindler’s List", "Million Dollar Baby", "The Social Network", "The Silence of the Lambs", "The apple", "Phantom of the Opera", "The Iron Man"];
 
 //создаем список фильмов
@@ -69,7 +68,7 @@ function checkFilms() {
   input.addEventListener("input", checking);
 }
 
-/*запуск */
+//запуск
 function startApp() {
   createList(filmCollection);
   formElem();
@@ -78,9 +77,7 @@ function startApp() {
 startApp();
 
 
-/*2) 
-upd: Обновите код так, чтобы по второму клику на li, список ингридиентов удалялся. */
-
+/*2)*/
 const INGREDIENTS = {
   "cocoa": ["cocoa powder", "milk", "sugar"],
   "cappuccino": ["milk", "coffee"],
@@ -96,34 +93,43 @@ function createDrinkList(obj) {
   wrapper.append(h1);
   h1.textContent = "Second task: Menu";
 
+  //создаем список из ключей объекта + подсписок
   wrapper.append(ul);
   ul.id = "menu";
 
-  /*создаем список из ключей объекта*/
   for (let key in obj) {
     let li = document.createElement("li");
     ul.append(li);
     li.textContent = key;
-  }
-  /*click -> sublist of Ingredients*/
-  function showIngredients(event) {
-    let value = event.target.textContent;
-
-    let sublistUL = document.createElement("ul");
-    event.target.append(sublistUL);
-
-    for (let elem = 0; elem < obj[value].length; elem++) {
-      let li = document.createElement("li");
-      sublistUL.append(li);
-      li.textContent = obj[value][elem];
+    let subUL = document.createElement("ul");
+    li.append(subUL);
+    for (let elem of obj[key]) {
+      let subLi = document.createElement("li");
+      subUL.append(subLi);
+      subUL.hidden = true;
+      subLi.textContent = elem;
     }
+  }
+
+  let parentLi = document.querySelectorAll("#menu > li");
+  let colectSubUL = document.querySelectorAll("#menu ul");
+
+  //click -> тоглер для класса в родительский li
+  function showIngredients(event) {
+    event.target.classList.toggle("show-ingr");
+    for (let i = 0; i < colectSubUL.length; i++) {
+      if (parentLi[i].className === "show-ingr") {
+        colectSubUL[i].hidden = false;
+      } else {
+        colectSubUL[i].hidden = true;
+      }
+    }
+
   }
   //вызов Listener
   let addSubList = document.querySelector("#menu");
   addSubList.addEventListener("click", showIngredients);
-
 }
-
 createDrinkList(INGREDIENTS);
 
 
